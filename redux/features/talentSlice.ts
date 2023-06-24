@@ -26,7 +26,7 @@ type talentState = {
 
 const initialState = { data: [], status: "idle", error: null } as talentState;
 
-const talentSlice = createSlice({
+const talent = createSlice({
   name: "talent",
   initialState,
   reducers: {
@@ -57,4 +57,5 @@ const talentSlice = createSlice({
   },
 });
 
-export default talentSlice.reducer;
+export const { setTalent } = talent.actions;
+export default talent.reducer;

@@ -2,11 +2,13 @@
 import Box from "@/components/box";
 import { InterviewButton, RejectButton } from "@/components/button";
 import { setMenu } from "@/redux/features/menuSlice";
+import { setTalent } from "@/redux/features/talentSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 export default function Shortlist() {
+  const router = useRouter();
   const pathname = usePathname();
   const path = pathname.split("/").pop();
 
@@ -30,8 +32,18 @@ export default function Shortlist() {
               notes={value.notes}
             >
               <div className="flex-1 ml-auto">
-                <RejectButton />
-                <InterviewButton />
+                <RejectButton
+                  onClick={() => {
+                    dispatch(setTalent({ id: value.id, stage: "reject" }));
+                    router.push("/talent/reject");
+                  }}
+                />
+                <InterviewButton
+                  onClick={() => {
+                    dispatch(setTalent({ id: value.id, stage: "interview" }));
+                    router.push("/talent/interview");
+                  }}
+                />
               </div>
             </Box>
           </div>
